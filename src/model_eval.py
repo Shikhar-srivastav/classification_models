@@ -4,7 +4,6 @@ import joblib
 from sklearn import metrics
 
 test_df = pd.read_csv("train_data.csv")
-
 models = [
     "logistic_regression",
     "decision_tree",
@@ -12,7 +11,6 @@ models = [
     "naive_bayes",
     "random_forest",
 ]
-eval = []
 
 fault_cols = ["Pastry", "Z_Scratch", "K_Scatch", "Stains", "Dirtiness", "Bumps", "Other_Faults"]
 feature_cols = [c for c in test_df.columns if c not in fault_cols]
@@ -24,7 +22,10 @@ scaler_file = "models/standard_scaler.pkl"
 scaler = joblib.load(scaler_file)
 X_test_scaled = scaler.transform(X_test)
 
-for name in models:
+def evaluate_model(name):
+    if (name not in models):
+        return
+    
     file_name = f"models/{name}.pkl"
     model = joblib.load(file_name)
 
@@ -40,9 +41,7 @@ for name in models:
         "F1": metrics.f1_score(y_test, predictions, average="weighted", zero_division=0),
         "MCC": metrics.matthews_corrcoef(y_test, predictions),
     }
-    eval.append(model_metrics)
 
-results_df = pd.DataFrame(eval)
-print(results_df)
+    return model_metrics
 
 
