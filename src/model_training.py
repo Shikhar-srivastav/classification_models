@@ -9,7 +9,6 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.ensemble import RandomForestClassifier
 
 train_df = pd.read_csv("train_data.csv")
-test_df = pd.read_csv("test_data.csv")
 
 fault_cols = ["Pastry", "Z_Scratch", "K_Scatch", "Stains", "Dirtiness", "Bumps", "Other_Faults"]
 feature_cols = [c for c in train_df.columns if c not in fault_cols]
@@ -19,6 +18,10 @@ X_train = train_df[feature_cols]
 
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
+
+scaler_file = "models/standard_scaler.pkl"
+joblib.dump(scaler, scaler_file, compress=3)
+print(f"Saved {scaler_file}")
 
 models = {
     "logistic_regression": LogisticRegression(max_iter=1000),
