@@ -1,0 +1,9 @@
+Required Libraries ---
+
+Name          | Version
+streamlit     | -
+pandas        | -
+numpy         | -
+scikit-learn  | -
+matplotlib    | -
+seaborn       | -
