@@ -1,6 +1,6 @@
 import streamlit as st
 
-from src.model_eval import evaluate_model
+from utils.model_eval import evaluate_model
 
 st.set_page_config(
     page_title="Classification Models",
