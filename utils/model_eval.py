@@ -2,15 +2,10 @@ import pandas as pd
 import joblib
 
 from sklearn import metrics
+from constants.maps import model_options
 
 test_df = pd.read_csv("train_data.csv")
-models = [
-    "logistic_regression",
-    "decision_tree",
-    "knn",
-    "naive_bayes",
-    "random_forest",
-]
+models = model_options.values()
 
 fault_cols = ["Pastry", "Z_Scratch", "K_Scatch", "Stains", "Dirtiness", "Bumps", "Other_Faults"]
 feature_cols = [c for c in test_df.columns if c not in fault_cols]

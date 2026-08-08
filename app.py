@@ -1,6 +1,8 @@
 import streamlit as st
 
+from constants.maps import model_options
 from utils.model_eval import evaluate_model
+
 
 st.set_page_config(
     page_title="Classification Models",
@@ -8,23 +10,15 @@ st.set_page_config(
     layout="centered",
 )
 
-model_map = {
-    "Logistic Regression": "logistic_regression",
-    "Decision Tree": "decision_tree",
-    "K Nearest Neighbors": "knn",
-    "Naive Bayes": "naive_bayes",
-    "Random Forest": "random_forest",
-}
-
 st.title("ML Classification Models Showcase")
 st.space("small")
 
-selected_model = st.selectbox("Select Classifier Model", model_map.keys())
+selected_model = st.selectbox("Select Classifier Model", model_options.keys())
 st.space("small")
 
-st.header(f"Calculated Metrics for {selected_model}")
+st.header(f"Calculated Metrics")
 
-stats = evaluate_model(model_map[selected_model])
+stats = evaluate_model(model_options[selected_model])
 stats = [i for i in stats.items()]
 
 if (len(stats)):
