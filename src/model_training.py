@@ -31,5 +31,5 @@ models = {
 for name, model in models.items():
     model.fit(X_train_scaled, y_train)
     file_name = f"models/{name}.pkl"
-    joblib.dump(model, file_name)
+    joblib.dump(model, file_name, compress=3)
     print(f"Saved {file_name}")
