@@ -7,10 +7,11 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.ensemble import RandomForestClassifier
+from constants.common import target_cols
 
 train_df = pd.read_csv("train_data.csv")
 
-fault_cols = ["Pastry", "Z_Scratch", "K_Scatch", "Stains", "Dirtiness", "Bumps", "Other_Faults"]
+fault_cols = target_cols
 feature_cols = [c for c in train_df.columns if c not in fault_cols]
 
 y_train = train_df[fault_cols].idxmax(axis=1)

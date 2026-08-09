@@ -1,34 +1,11 @@
-import pandas as pd
-import joblib
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 from sklearn import metrics
-from constants.common import model_options, target_cols
+from constants.common import target_cols
 
-test_df = pd.read_csv("train_data.csv")
-models = model_options.values()
-
-fault_cols = target_cols
-feature_cols = [c for c in test_df.columns if c not in fault_cols]
-
-y_test = test_df[fault_cols].idxmax(axis=1)
-X_test = test_df[feature_cols]
-
-scaler_file = "models/standard_scaler.pkl"
-scaler = joblib.load(scaler_file)
-X_test_scaled = scaler.transform(X_test)
-
-def evaluate_model(name):
-    if (name not in models):
-        return
-    
-    file_name = f"models/{name}.pkl"
-    model = joblib.load(file_name)
-
-    predictions = model.predict(X_test_scaled)
-    probabilities = model.predict_proba(X_test_scaled)
-
+def evaluate_model(y_test, predictions, probabilities):
     model_metrics = {
-        "Model": name,
         "Accuracy": metrics.accuracy_score(y_test, predictions),
         "AUC": metrics.roc_auc_score(y_test, probabilities, multi_class="ovr"),
         "Precision": metrics.precision_score(y_test, predictions, average="weighted", zero_division=0),
@@ -39,4 +16,21 @@ def evaluate_model(name):
 
     return model_metrics
 
+def create_confusion_matrix(y_test, predictions):
+    class_labels = target_cols
+    cm = metrics.confusion_matrix(y_test, predictions)
 
+    fig, ax = plt.subplots(figsize=(5, 4))
+    sns.heatmap(
+        cm, 
+        annot=True,
+        fmt="d",
+        cmap="Blues",
+        xticklabels=class_labels, 
+        yticklabels=class_labels,
+        ax=ax
+    )
+    ax.set_xlabel("Predicted Labels")
+    ax.set_ylabel("True Labels")
+
+    return fig
