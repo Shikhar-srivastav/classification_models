@@ -1,6 +1,6 @@
 import streamlit as st
 
-from constants.maps import model_options
+from constants.common import model_options
 from utils.model_eval import evaluate_model
 
 

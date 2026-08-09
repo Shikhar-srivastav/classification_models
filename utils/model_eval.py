@@ -2,12 +2,12 @@ import pandas as pd
 import joblib
 
 from sklearn import metrics
-from constants.maps import model_options
+from constants.common import model_options, target_cols
 
 test_df = pd.read_csv("train_data.csv")
 models = model_options.values()
 
-fault_cols = ["Pastry", "Z_Scratch", "K_Scatch", "Stains", "Dirtiness", "Bumps", "Other_Faults"]
+fault_cols = target_cols
 feature_cols = [c for c in test_df.columns if c not in fault_cols]
 
 y_test = test_df[fault_cols].idxmax(axis=1)
