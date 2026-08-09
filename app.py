@@ -1,3 +1,4 @@
+import pandas as pd
 import streamlit as st
 
 from constants.common import model_options
@@ -15,10 +16,20 @@ st.space("small")
 
 selected_model = st.selectbox("Select Classifier Model", model_options.keys())
 
-st.space("small")
+st.space('small')
+uploaded_file = st.file_uploader("Upload test data CSV file", type=".csv", accept_multiple_files=False)
+
+uploaded_data = None
+if (uploaded_file):
+    st.subheader(f"Ran model on uploaded test file {uploaded_file.name}")
+    uploaded_data = pd.read_csv(uploaded_file)
+else:
+    st.subheader("Ran model on pre-loaded test file")
+    uploaded_data = pd.read_csv("test_data.csv")
+
 st.header(f"Calculated Metrics")
 
-y_test, pred, prob = model_predictions(model_options[selected_model])
+y_test, pred, prob = model_predictions(model_options[selected_model], uploaded_data)
 stats = evaluate_model(y_test, pred, prob)
 stats = [i for i in stats.items()]
 

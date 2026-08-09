@@ -3,10 +3,9 @@ import joblib
 
 from constants.common import model_options, target_cols
 
-preloaded_test_df = pd.read_csv("test_data.csv")
 models = model_options.values()
 
-def model_predictions(model_name, test_df = preloaded_test_df):
+def model_predictions(model_name, test_df):
     fault_cols = target_cols
     feature_cols = [c for c in test_df.columns if c not in fault_cols]
 
