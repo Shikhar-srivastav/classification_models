@@ -39,4 +39,4 @@ https://github.com/Shikhar-srivastav/classification_models
 
 ## Web Application Link
 
-https://classificationmodels-zzgjpbrvybn6bifxvt7tsn.streamlit.app/
+https://classificationmodels-zzgjpbrvybn6bifxvt7tsn.streamlit.app
