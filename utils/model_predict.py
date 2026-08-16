@@ -1,4 +1,3 @@
-import pandas as pd
 import joblib
 
 from constants.common import model_options, target_cols

@@ -25,11 +25,11 @@ joblib.dump(scaler, scaler_file, compress=3)
 print(f"Saved {scaler_file}")
 
 models = {
-    "logistic_regression": LogisticRegression(max_iter=1000),
-    "decision_tree": DecisionTreeClassifier(random_state=42),
+    "logistic_regression": LogisticRegression(max_iter=1000, class_weight="balanced"),
+    "decision_tree": DecisionTreeClassifier(random_state=42, class_weight="balanced"),
     "knn": KNeighborsClassifier(n_neighbors=5),
     "naive_bayes": GaussianNB(),
-    "random_forest": RandomForestClassifier(n_estimators=200, random_state=42),
+    "random_forest": RandomForestClassifier(n_estimators=200, random_state=42, class_weight="balanced"),
 }
 
 for name, model in models.items():
