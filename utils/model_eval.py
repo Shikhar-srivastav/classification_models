@@ -16,11 +16,12 @@ def evaluate_model(y_test, predictions, probabilities):
 
     return model_metrics
 
-def create_confusion_matrix(y_test, predictions):
-    class_labels = target_cols
+def create_confusion_matrix(model_name, y_test, predictions):
+    class_labels = sorted(target_cols)
     cm = metrics.confusion_matrix(y_test, predictions)
 
     fig, ax = plt.subplots(figsize=(5, 4))
+    
     sns.heatmap(
         cm, 
         annot=True,
@@ -30,6 +31,7 @@ def create_confusion_matrix(y_test, predictions):
         yticklabels=class_labels,
         ax=ax
     )
+    ax.set_title(model_name)
     ax.set_xlabel("Predicted Labels")
     ax.set_ylabel("True Labels")
 

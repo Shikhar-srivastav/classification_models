@@ -48,5 +48,5 @@ if (len(stats)):
 st.space("small")
 st.header(f"Confusion Matrix")
 
-confusion_matrix = create_confusion_matrix(y_test, pred)
+confusion_matrix = create_confusion_matrix(selected_model, y_test, pred)
 st.pyplot(confusion_matrix)
